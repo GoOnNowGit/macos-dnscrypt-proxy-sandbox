@@ -20,9 +20,10 @@ sudo cp goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
 ```
 cp dnscrypt-proxy.sb "${HOME}"
 ```
-#### Start the via launchctl
+#### Start the sandboxed dnscrypt-proxy via launchctl
 ```
 sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
+sudo launchctl list | grep dnscrypt-proxy
 ```
 #### Or just do it manually
 ```
