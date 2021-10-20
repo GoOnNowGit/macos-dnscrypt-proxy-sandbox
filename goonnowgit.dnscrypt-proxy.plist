@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>goonnowgit.dnscrypt-proxy</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>sandbox-exec</string>
+        <string>-f</string>
+        <string>dnscrypt-proxy.sb</string>
+        <string>/usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy</string>
+        <string>--config</string>
+        <string>/usr/local/etc/dnscrypt-proxy.toml</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
