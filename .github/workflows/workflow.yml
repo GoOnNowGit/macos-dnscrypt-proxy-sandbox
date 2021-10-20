@@ -1,0 +1,36 @@
+name: Sandbox dnscrypt-proxy workflow
+
+on:
+  schedule:
+  - cron: "0 4 * * *" # Runs at 04:00 UTC everyday
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Test
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v2
+
+      - name: Install dnscrypt-proxy
+        run: brew install dnscrypt-proxy
+
+      - name: Copy sandbox file to /usr/share/sandbox
+        run: sudo cp dnscrypt-proxy.sb /usr/share/sandbox
+
+      - name: Copy LauchDaemon plist to /Library/LaunchDaemons
+        run: sudo cp goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
+
+      - name: Just use cloudflare to make the start up process quick
+        run: sed -i -e "s/^# server_names.*$/server_names = ['cloudflare']/" /usr/local/etc/dnscrypt-proxy.toml
+
+      - name: Start dnscrypt-proxy
+        run: sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
+
+      - name: Give it a moment...
+        run: sleep 5
+
+      - name: Do a DNS lookup
+        run: dig @127.0.0.1 www.google.com
