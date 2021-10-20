@@ -17,8 +17,8 @@ jobs:
       - name: Install dnscrypt-proxy
         run: brew install dnscrypt-proxy
 
-      - name: Copy sandbox file to /usr/share/sandbox
-        run: sudo cp dnscrypt-proxy.sb /usr/share/sandbox
+      - name: Copy sandbox file to /Users/runner
+        run: cp dnscrypt-proxy.sb /Users/runner
 
       - name: Copy LauchDaemon plist to /Library/LaunchDaemons
         run: sudo cp goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
@@ -28,6 +28,9 @@ jobs:
 
       - name: Start dnscrypt-proxy
         run: sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
+
+      - name: Get status
+        run: sudo launchctl list | grep dnscrypt-proxy
 
       - name: Give it a moment...
         run: sleep 5
