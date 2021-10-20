@@ -29,6 +29,9 @@ jobs:
       - name: Start dnscrypt-proxy
         run: sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
 
+      - name: Get status
+        run: sudo launchctl list | grep dnscrypt-proxy
+
       - name: Give it a moment...
         run: sleep 5
 
