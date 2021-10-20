@@ -1,9 +1,9 @@
 (version 1)
+;(trace "dnscrypt.sb")
+(import "bsd.sb")
 (deny default)
 
-;(trace "dnscrypt.sb")
-
-(import "bsd.sb")
+(allow signal (target self))
 
 (allow ipc-posix-shm-read*
    ipc-posix-shm-write-create
@@ -73,6 +73,10 @@
    (literal "/dev/fd/1")
 )
 
+(allow file-read*
+   (literal "/dev/urandom")
+)
+
 (allow file-write*
   (literal "/usr/local/etc")
   (regex #"^/usr/local/etc/.*\.log")
@@ -100,7 +104,7 @@
 ; from cvmsServer.sb 
 ;
 (when (defined? 'syscall-unix)
-  ; (deny syscall-unix (with send-signal SIGKILL))
+  (deny syscall-unix (with send-signal SIGKILL))
   (allow syscall-unix
     ;; System Call allow list
     (syscall-number SYS___disable_threadsignal
@@ -123,6 +127,8 @@
                     SYS_csops
                     SYS_csops_audittoken
                     SYS_csrctl
+                    SYS_execve
+                    SYS_exit
                     SYS_fcntl
                     SYS_fcntl_nocancel
                     SYS_fgetattrlist
@@ -181,12 +187,14 @@
                     SYS_socket
                     SYS_stat64
                     SYS_statfs64
+                    SYS_sysctl
                     SYS_sysctlbyname
                     SYS_thread_selfid
                     SYS_ulock_wait
                     SYS_ulock_wake
                     SYS_workq_kernreturn
-                    SYS_workq_open)
+                    SYS_workq_open
+                    SYS_write)
   )
   ;; Comment deny-syscall above and uncomment line below to allow
   ;; the system call but report in the log to determine allow call list.
