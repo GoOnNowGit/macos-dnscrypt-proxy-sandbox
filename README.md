@@ -3,7 +3,7 @@
 
 MacOS sandbox for dnscrypt-proxy
 
-### I Started by accumulating *.sb files across the system...
+### I started by accumulating *.sb files across the system
 ```
 mkdir sandbox_files
 sudo find / -xdev -name "*.sb" -type f -exec cp {} sandbox_files \; 2>/dev/null
