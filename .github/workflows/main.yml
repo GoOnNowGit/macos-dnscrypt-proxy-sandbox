@@ -26,6 +26,9 @@ jobs:
       - name: Just use cloudflare to make the start up process quick
         run: sed -i -e "s/^# server_names.*$/server_names = ['cloudflare']/" /usr/local/etc/dnscrypt-proxy.toml
 
+      - name: Set application log
+        run: sed -i -e "s/# log_file = 'dnscrypt-proxy.log'/log_file = '\/usr\/local\/etc\/dnscrypt-proxy.log'/" /usr/local/etc/dnscrypt-proxy.toml
+
       - name: Start dnscrypt-proxy
         run: sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
 
@@ -33,7 +36,11 @@ jobs:
         run: sudo launchctl list | grep dnscrypt-proxy
 
       - name: Give it a moment...
-        run: sleep 5
+        run: sleep 10
+
+      - name: Check log for a proper startup
+        run: cat /usr/local/etc/dnscrypt-proxy.toml
 
       - name: Do a DNS lookup
         run: dig @127.0.0.1 www.google.com
+
