@@ -1,6 +1,9 @@
 name: Sandbox dnscrypt-proxy workflow
 
 on:
+  push:
+    branches:
+      - main
   schedule:
   - cron: "0 4 * * *" # Runs at 04:00 UTC everyday
   workflow_dispatch:
@@ -36,7 +39,7 @@ jobs:
         run: sudo launchctl list | grep dnscrypt-proxy
 
       - name: Give it a moment...
-        run: while [[ -z $(grep "dnscrypt-proxy is ready" /usr/local/etc/dnscrypt-proxy.log) ]] do; sleep 1; done
+        run: while [[ -z $(grep "dnscrypt-proxy is ready" /usr/local/etc/dnscrypt-proxy.log) ]]; do sleep 1; done
 
       - name: Check log for a proper startup
         run: cat /usr/local/etc/dnscrypt-proxy.log
