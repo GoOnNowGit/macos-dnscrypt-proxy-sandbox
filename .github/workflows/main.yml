@@ -39,7 +39,7 @@ jobs:
         run: while [[ -z $(grep "dnscrypt-proxy is ready" /usr/local/etc/dnscrypt-proxy.log) ]] do; sleep 1; done
 
       - name: Check log for a proper startup
-        run: cat /usr/local/etc/dnscrypt-proxy.toml
+        run: cat /usr/local/etc/dnscrypt-proxy.log
 
       - name: Do a DNS lookup
         run: dig @127.0.0.1 www.google.com
