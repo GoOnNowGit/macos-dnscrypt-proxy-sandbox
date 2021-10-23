@@ -81,16 +81,16 @@
   (literal "/usr/local/etc")
   (regex #"^/usr/local/etc/.*\.log")
   (regex #"^/usr/local/etc/.*\.md*")
+  (regex #"^/usr/local/etc/.*\.tmp*")
 )
 
 (allow file-read*
-  (literal "/usr/local/Cellar/dnscrypt-proxy/2.1.1/sbin")
-  (literal "/usr/local/Cellar/dnscrypt-proxy/2.1.1/sbin/dnscrypt-proxy")
   (literal "/usr/local/etc")
   (literal "/usr/local/etc/dnscrypt-proxy.toml")
   (literal "/usr/local/etc/localhost.pem")
   (regex #"^/usr/local/etc/.*\.log")
   (regex #"^/usr/local/etc/.*\.md*")
+  (regex #"^/usr/local/etc/.*\.tmp*")
   (regex #"^/usr/local/etc/allowed.*\.txt")
   (regex #"^/usr/local/etc/blocked.*\.txt")
 )
@@ -178,6 +178,7 @@
                     SYS_read
                     SYS_read_nocancel
                     SYS_recvfrom
+                    SYS_rename
                     SYS_sendto
                     SYS_setattrlist
                     SYS_setsockopt
