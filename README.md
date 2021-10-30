@@ -22,7 +22,7 @@ ln -s "${PWD}"/dnscrypt-proxy.sb "${HOME}"
 sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
 sudo launchctl list | grep dnscrypt-proxy
 ```
-#### Or just do it manually
+#### Or just start it manually
 ```
 sudo sandbox-exec -f "${HOME}"/dnscrypt-proxy.sb /usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy --config /usr/local/etc/dnscrypt-proxy.toml
 ```
@@ -32,10 +32,10 @@ sudo sandbox-exec -f "${HOME}"/dnscrypt-proxy.sb /usr/local/opt/dnscrypt-proxy/s
 * I accumulated the *.sb files on the system.  This was done more as a convenience to easily grep across files.
 ```
 mkdir sandbox_files
-sudo find / -xdev -name "*.sb" -type f -exec cp {} sandbox_files \; 2>/dev/null
+sudo find /usr/share/sandbox -xdev -name "*.sb" -type f -exec sh -c 'ln -s {} sandbox_files/"$(basename {})"' \;
 ```
 
-## Syscall tracing via dtruss
+### Get a baseline syscall profile via dtruss
 * Begin tracing dnscrypt-proxy and perform some DNS lookups, etc.
 ```
 sudo dtruss /usr/local/sbin/dnscrypt-proxy -config /usr/local/etc/dnscrypt-proxy.toml |& tee dnscrypt.dtruss
@@ -46,17 +46,18 @@ networksetup -setdnsservers 'Wi-Fi' 127.0.0.1
 ```
 or just 
 ```
-dig @127.0.0.1 ...
+dig @127.0.0.1 <some domain>
 ```
 
 * Ctrl + C the process
 * Parse out the syscalls
 ```
-perl -lne 'next if /dtrace: error/; print "$1" if /(^[\w\d_]{4,}?)\(/' dnscrypt.dtruss| sort -u
+perl -lne 'next if /dtrace: error/; print "$1" if /(^[\w\d_]{4,}?)\(/' dnscrypt.dtruss | sort -u
 ```
 * Add the syscalls to the sandbox profile. I used the syscall block in, */usr/share/sandbox/cvmsServer.sb* as a reference.
 
 ### Start the Console.app
+* Press start (play button) at the top of the window
 * Set the filter to *syscall-unix* 
 * Start the sandboxed dnscrypt-proxy
 ```
@@ -66,8 +67,9 @@ sudo sandbox-exec -f "${HOME}"/dnscrypt-proxy.sb /usr/local/opt/dnscrypt-proxy/s
 ```
 kernel Sandbox: sandbox-exec(<pid>) deny(1) syscall-unix <syscall #>
 ```
+![image](Console.png)
 
-* Look up the syscall name corresponding to the syscall number in the Console output.  I used, https://sigsegv.pl/osx-bsd-syscalls/
+* Look up the syscall name corresponding to the syscall number in the Console output.  I used, https://sigsegv.pl/osx-bsd-syscalls/.
 * Add the syscall to the sandbox file
 
 ## Rinse and repeat
