@@ -52,9 +52,9 @@ dig @127.0.0.1 <some domain>
 * Ctrl + C the process
 * Parse out the syscalls
 ```
-perl -lne 'next if /dtrace: error/; print "$1" if /(^[\w\d_]{4,}?)\(/' dnscrypt.dtruss | sort -u
+perl -lne 'print "$1" if /syscall::(\w+):return/ || /(^[\w\d_]{4,}?)\(/' dnscrypt.dtruss | sort -u
 ```
-* Add the syscalls to the sandbox profile. I used the syscall block in, */usr/share/sandbox/cvmsServer.sb* as a reference.
+* Add the syscalls to the sandbox profile. I used the syscall block in, **/usr/share/sandbox/cvmsServer.sb** as a reference.
 
 ### Start the Console.app
 * Press start (play button) at the top of the window
