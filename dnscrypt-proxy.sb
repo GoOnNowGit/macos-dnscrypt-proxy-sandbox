@@ -154,6 +154,9 @@
                     SYS_getuid
                     SYS_ioctl
                     SYS_issetugid
+                    SYS_kdebug_trace64
+                    SYS_kdebug_trace_string
+                    SYS_kdebug_typefilter
                     SYS_kevent
                     SYS_kevent_id
                     SYS_kevent_qos
@@ -162,6 +165,7 @@
                     SYS_lseek
                     SYS_lstat64
                     SYS_madvise
+                    SYS_mkdir
                     SYS_mmap
                     SYS_mprotect
                     SYS_open
