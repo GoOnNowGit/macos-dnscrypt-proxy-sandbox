@@ -151,6 +151,7 @@
                     SYS_getsockname
                     SYS_getsockopt
                     SYS_gettid
+                    SYS_gettimeofday
                     SYS_getuid
                     SYS_ioctl
                     SYS_issetugid
