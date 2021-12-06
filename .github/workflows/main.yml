@@ -35,6 +35,9 @@ jobs:
       - name: Get status
         run: sudo launchctl list | grep dnscrypt-proxy
 
+      - name: Get initial log
+        run: sleep 5 && cat /usr/local/etc/dnscrypt-proxy.log
+        
       - name: Give it a moment...
         run: while [[ -z $(grep "dnscrypt-proxy is ready" /usr/local/etc/dnscrypt-proxy.log) ]]; do sleep 1; done
 
