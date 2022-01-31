@@ -18,7 +18,10 @@
 
 (allow file-read-data
   (subpath "/private/var/tmp/mds")
-  (subpath "/private/var/db/mds"))
+  (subpath "/private/var/db/mds")
+  (literal "/usr/local/Cellar/dnscrypt-proxy/2.1.1/sbin")
+  (literal "/usr/local/Cellar/dnscrypt-proxy/2.1.1/sbin/dnscrypt-proxy"))
+
 
 (allow file-read* file-write*
   (regex #"^/private/var/tmp/mds/[0-9]+(/|$)")
@@ -74,7 +77,7 @@
 )
 
 (allow file-read*
-   (literal "/dev/urandom")
+  (literal "/dev/urandom")
 )
 
 (allow file-write*
@@ -186,6 +189,7 @@
                     SYS_recvfrom
                     SYS_rename
                     SYS_sendto
+                    SYS_sendto_nocancel
                     SYS_setattrlist
                     SYS_setsockopt
                     SYS_shared_region_check_np
