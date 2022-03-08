@@ -22,7 +22,12 @@ ln -s "${PWD}"/dnscrypt-proxy.sb "${HOME}"
 sudo launchctl load -w /Library/LaunchDaemons/goonnowgit.dnscrypt-proxy.plist
 sudo launchctl list | grep dnscrypt-proxy
 ```
-#### Or just start it manually
+#### Or just start it manually, but you will have to add your present working directory to dnscrypt-proxy.sb
+```
+(allow file-read-data
+  (literal "YOUR PRESENT WORKING DIR"))
+```
+
 ```
 sudo sandbox-exec -f "${HOME}"/dnscrypt-proxy.sb /usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy --config /usr/local/etc/dnscrypt-proxy.toml
 ```
