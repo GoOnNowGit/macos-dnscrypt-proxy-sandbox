@@ -98,14 +98,14 @@
   (regex #"^/usr/local/etc/blocked.*\.txt")
 )
 
-(allow process-exec 
+(allow process-exec
   (literal "/usr/local/Cellar/dnscrypt-proxy/2.1.1/sbin/dnscrypt-proxy")
   (literal "/usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy")
   (literal "/usr/local/sbin/dnscrypt-proxy")
 )
 
 ;
-; from cvmsServer.sb 
+; from cvmsServer.sb
 ;
 (when (defined? 'syscall-unix)
   (deny syscall-unix (with send-signal SIGKILL))
@@ -173,6 +173,7 @@
                     SYS_mmap
                     SYS_mprotect
                     SYS_munmap
+                    SYS_necp_open
                     SYS_open
                     SYS_open_nocancel
                     SYS_openat
@@ -187,7 +188,10 @@
                     SYS_read
                     SYS_read_nocancel
                     SYS_recvfrom
+                    SYS_recvfrom_nocancel
                     SYS_rename
+                    SYS_select_nocancel
+                    SYS_sendmsg_nocancel
                     SYS_sendto
                     SYS_sendto_nocancel
                     SYS_setattrlist
@@ -198,6 +202,7 @@
                     SYS_sigaltstack
                     SYS_sigreturn
                     SYS_socket
+                    SYS_socketpair
                     SYS_stat64
                     SYS_statfs64
                     SYS_sysctl
