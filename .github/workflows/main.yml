@@ -15,10 +15,10 @@ jobs:
         run: brew install dnscrypt-proxy
 
       - name: Install sandbox file to /Users/runner
-        run: sudo install -o root -g wheel dnscrypt-proxy.sb /Users/runner
+        run: sudo install -o root -g wheel -m 0644 dnscrypt-proxy.sb /usr/local/sbin
 
       - name: Install chDaemon plist to /Library/LaunchDaemons
-        run: sudo install -o root -g wheel goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
+        run: sudo install -o root -g wheel -m 0644 goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
 
       - name: Just use cloudflare to make the start up process quick
         run: sed -i -e "s/^# server_names.*$/server_names = ['cloudflare']/" /usr/local/etc/dnscrypt-proxy.toml

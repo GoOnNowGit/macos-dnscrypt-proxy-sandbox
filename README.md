@@ -14,8 +14,8 @@ cd macos-dnscrypt-proxy-sandbox
 ```
 #### Setup Links
 ```
-sudo install -o root -g wheel goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
-sudo install -o root -g wheel dnscrypt-proxy.sb ~
+sudo install -o root -g wheel -m 0644 goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
+sudo install -o root -g wheel -m 0644 dnscrypt-proxy.sb /usr/local/sbin
 ```
 #### Start the sandboxed dnscrypt-proxy via launchctl
 ```
