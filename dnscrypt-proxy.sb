@@ -1,5 +1,3 @@
-# vim: set ft=lisp
-
 (version 1)
 ;(trace "dnscrypt.sb")
 (import "bsd.sb")
