@@ -1,9 +1,6 @@
 name: Sandbox dnscrypt-proxy workflow
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
@@ -18,7 +15,7 @@ jobs:
         run: brew install dnscrypt-proxy
 
       - name: Install sandbox file to /Users/runner
-        run: sudo install -o root -g wheel dnscrypt-proxy.sb ~
+        run: sudo install -o root -g wheel dnscrypt-proxy.sb /Users/runner
 
       - name: Install chDaemon plist to /Library/LaunchDaemons
         run: sudo install -o root -g wheel goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
