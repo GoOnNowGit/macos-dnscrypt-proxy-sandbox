@@ -14,8 +14,8 @@ cd macos-dnscrypt-proxy-sandbox
 ```
 #### Setup Links
 ```
-sudo ln -s "${PWD}"/goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
-ln -s "${PWD}"/dnscrypt-proxy.sb "${HOME}"
+sudo install -o root -g wheel -m 0644 goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
+sudo install -o root -g wheel -m 0644 dnscrypt-proxy.sb /usr/local/sbin
 ```
 #### Start the sandboxed dnscrypt-proxy via launchctl
 ```
@@ -49,7 +49,7 @@ sudo dtruss /usr/local/sbin/dnscrypt-proxy -config /usr/local/etc/dnscrypt-proxy
 ```
 networksetup -setdnsservers 'Wi-Fi' 127.0.0.1
 ```
-or just 
+or just
 ```
 dig @127.0.0.1 <some domain>
 ```
@@ -63,7 +63,7 @@ perl -lne 'print "$1" if /syscall::(\w+):return/ || /(^[\w\d_]{4,}?)\(/' dnscryp
 
 ### Start the Console.app
 * Press start (play button) at the top of the window
-* Set the filter to *syscall-unix* 
+* Set the filter to *syscall-unix*
 * Start the sandboxed dnscrypt-proxy
 ```
 sudo sandbox-exec -f "${HOME}"/dnscrypt-proxy.sb /usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy --config /usr/local/etc/dnscrypt-proxy.toml
@@ -81,7 +81,7 @@ kernel Sandbox: sandbox-exec(<pid>) deny(1) syscall-unix <syscall #>
 
 * **Disclaimer**: This is still a work in progress and is ultimately for fun...
 
-* Also, as Apple states in their sandbox files: 
+* Also, as Apple states in their sandbox files:
 ```
 WARNING: The sandbox rules in this file currently constitute
 Apple System Private Interface and are subject to change at any time and

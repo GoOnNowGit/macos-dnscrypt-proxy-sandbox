@@ -1,9 +1,6 @@
 name: Sandbox dnscrypt-proxy workflow
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
@@ -17,11 +14,11 @@ jobs:
       - name: Install dnscrypt-proxy
         run: brew install dnscrypt-proxy
 
-      - name: Copy sandbox file to /Users/runner
-        run: cp dnscrypt-proxy.sb /Users/runner
+      - name: Install sandbox file
+        run: sudo install -o root -g wheel -m 0644 dnscrypt-proxy.sb /usr/local/sbin
 
-      - name: Copy LauchDaemon plist to /Library/LaunchDaemons
-        run: sudo cp goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
+      - name: Install LaunchDaemon
+        run: sudo install -o root -g wheel -m 0644 goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
 
       - name: Just use cloudflare to make the start up process quick
         run: sed -i -e "s/^# server_names.*$/server_names = ['cloudflare']/" /usr/local/etc/dnscrypt-proxy.toml
@@ -37,7 +34,7 @@ jobs:
 
       - name: Get initial log
         run: sleep 5 && cat /usr/local/etc/dnscrypt-proxy.log
-        
+
       - name: Give it a moment...
         run: while [[ -z $(grep "dnscrypt-proxy is ready" /usr/local/etc/dnscrypt-proxy.log) ]]; do sleep 1; done
 
@@ -46,4 +43,3 @@ jobs:
 
       - name: Do a DNS lookup
         run: dig @127.0.0.1 www.google.com
-

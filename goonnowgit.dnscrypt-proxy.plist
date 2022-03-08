@@ -8,7 +8,7 @@
     <array>
         <string>sandbox-exec</string>
         <string>-f</string>
-        <string>/Users/runner/dnscrypt-proxy.sb</string>
+        <string>/usr/local/sbin/dnscrypt-proxy.sb</string>
         <string>/usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy</string>
         <string>--config</string>
         <string>/usr/local/etc/dnscrypt-proxy.toml</string>
