@@ -17,7 +17,7 @@ jobs:
       - name: Install sandbox file to /Users/runner
         run: sudo install -o root -g wheel -m 0644 dnscrypt-proxy.sb /usr/local/sbin
 
-      - name: Install chDaemon plist to /Library/LaunchDaemons
+      - name: Install LaunchDaemon to /Library/LaunchDaemons
         run: sudo install -o root -g wheel -m 0644 goonnowgit.dnscrypt-proxy.plist /Library/LaunchDaemons
 
       - name: Just use cloudflare to make the start up process quick
