@@ -124,6 +124,7 @@
                     SYS_bsdthread_ctl
                     SYS_bsdthread_register
                     SYS_bsdthread_terminate
+                    SYS_change_fdguard_np
                     SYS_chdir
                     SYS_close
                     SYS_close_nocancel
