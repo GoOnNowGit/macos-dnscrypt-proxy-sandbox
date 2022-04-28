@@ -59,7 +59,19 @@ dig @127.0.0.1 <some domain>
 ```
 perl -lne 'print "$1" if /syscall::(\w+):return/ || /(^[\w\d_]{4,}?)\(/' dnscrypt.dtruss | sort -u
 ```
-* Add the syscalls to the sandbox profile. I used the syscall block in, **/usr/share/sandbox/cvmsServer.sb** as a reference.
+* Add the syscalls to the syscall block in [dnscrypt-proxy.sb](dnscrypt-proxy.sb)
+* In this case, the syscalls will be prefixed with ```SYS__``` when you add them to the syscall allow list (I used the syscall block in, **/usr/share/sandbox/cvmsServer.sb** as a reference).
+
+* The syscall block in [dnscrypt-proxy.sb](dnscrypt-proxy.sb) starts with the lines below:
+```
+(when (defined? 'syscall-unix)
+  (deny syscall-unix (with send-signal SIGKILL))
+  (allow syscall-unix
+    ;; System Call allow list
+    (syscall-number SYS___disable_threadsignal
+                    SYS___mac_syscall
+                    SYS___pthread_canceled
+```
 
 ### Start the Console.app
 * Press start (play button) at the top of the window
@@ -75,7 +87,7 @@ kernel Sandbox: sandbox-exec(<pid>) deny(1) syscall-unix <syscall #>
 ![image](Console.png)
 
 * Look up the syscall name corresponding to the syscall number in the Console output.  I used, https://sigsegv.pl/osx-bsd-syscalls/.
-* Add the syscall to the sandbox file
+* Add the syscall to the sandbox file according the to process explained above.
 
 ## Rinse and repeat
 
